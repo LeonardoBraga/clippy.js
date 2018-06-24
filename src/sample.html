@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>test</title>
+
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="build/clippy.css" />
+</head>
+
+<body>
+    <script src="build/clippy.main.js"></script>
+    <script>
+        clippy.load('Rover', function (agent) {
+            // exposing the agent so we can play with it in the console
+            window.agent = agent;
+
+            agent.show();
+        });
+    </script>
+</body>
+
+</html>

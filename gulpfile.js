@@ -14,6 +14,11 @@ const paths = {
     scripts: {
         src: 'src/**/*.js',
         dest: 'build/'
+    },
+
+    sample: {
+        src: 'src/sample.html',
+        dest: 'build/'
     }
 };
 
@@ -35,7 +40,12 @@ function scripts() {
         .pipe(gulp.dest(paths.scripts.dest));
 }
 
-const build = gulp.series(clean, gulp.parallel(scripts, styles));
+function sample() {
+    return gulp.src(paths.sample.src)
+        .pipe(gulp.dest(paths.sample.dest));
+}
+
+const build = gulp.series(clean, gulp.parallel(scripts, styles, sample));
 
 gulp.task('build', build);
 
