@@ -1,6 +1,17 @@
+Please read before you move on
+=========
+This repo is just a fork of fantastic work done by https://github.com/smore-inc.
+
+The original implementation can be found here: https://github.com/smore-inc/clippy.js/.
+
+This is an experiment to remove the dependency on JQuery and some other small adjustments.
+
+
+
+
 [Clippy.JS](http://smore.com/clippy-js)
 =========
-Add Clippy or his friends to any website for instant nostalgia.  
+Add Clippy or his friends to any website for instant nostalgia.
 Read more about the project on [our homepage](http://smore.com/clippy-js).
 
 
