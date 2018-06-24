@@ -1,8 +1,7 @@
-clippy.BASE_PATH = './agents/';
 (() => {
-clippy.load = function (name, successCb, failCb) {
-    const path = clippy.BASE_PATH + name;
-
+clippy.load = function (options, successCb, failCb) {
+    const name = options.name;
+    const path = options.path + name;
     const mapDfd = clippy.load._loadMap(path);
     const agentDfd = clippy.load._loadAgent(name, path);
     const soundsDfd = clippy.load._loadSounds(name, path);

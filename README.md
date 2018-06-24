@@ -1,11 +1,23 @@
 Please read before you move on
 =========
-This repo is just a fork of fantastic work done by https://github.com/smore-inc.
+* This repo is just a fork of the fantastic work done by https://github.com/smore-inc.
+* The original implementation can be found here: https://github.com/smore-inc/clippy.js/.
+* This is an experiment to remove the dependency on JQuery and some other small adjustments.
+* The code only targets ES6-capable browsers. Tested on Mac in Chrome, Safari and Firefox.
 
-The original implementation can be found here: https://github.com/smore-inc/clippy.js/.
 
-This is an experiment to remove the dependency on JQuery and some other small adjustments.
+Build
+------------
+1. Install [Yarn](https://yarnpkg.com/lang/en/)
+2. Run `yarn` from the location where you cloned this repo to install the local dependencies
+3. Run `yarn add gulp-cli -g` to install Gulp-CLI globally
+4. Run `gulp` to build the project
 
+Local test
+------------
+1. Run `yarn global add http-server` to install a basic NodeJS-based webserver
+2. Run `http-server` from the location where you cloned this repo.
+3. Open your browser and load `http://localhost:8080/buid/sample.html`
 
 
 

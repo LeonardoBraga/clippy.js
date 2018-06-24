@@ -5,13 +5,13 @@
     <title>test</title>
 
     <meta charset='utf-8'>
-    <link rel="stylesheet" href="build/clippy.css" />
+    <link rel="stylesheet" href="clippy.css" />
 </head>
 
 <body>
-    <script src="build/clippy.main.js"></script>
+    <script src="clippy.min.js"></script>
     <script>
-        clippy.load('Rover', function (agent) {
+        clippy.load({ name: 'Rover', path: '../agents/' }, function (agent) {
             // exposing the agent so we can play with it in the console
             window.agent = agent;
 
