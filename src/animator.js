@@ -4,6 +4,8 @@
  * @constructor
  */
 clippy.Animator = function (el, path, data, sounds) {
+    sounds = sounds || {};
+
     this._el = el;
     this._data = data;
     this._path = path;
@@ -21,25 +23,26 @@ clippy.Animator = function (el, path, data, sounds) {
 
     this._setupElement(this._el);
     for (var i = 1; i < this._data.overlayCount; i++) {
-        var inner = this._setupElement($('<div></div>'));
+        var inner = this._setupElement(document.createElement('div'));
 
-        curr.append(inner);
+        curr.appendChild(inner);
         this._overlays.push(inner);
         curr = inner;
     }
 };
 
 clippy.Animator.prototype = {
-    _setupElement:function (el) {
+    _setupElement: function (el) {
         var frameSize = this._data.framesize;
-        el.css('display', "none");
-        el.css({width:frameSize[0], height:frameSize[1]});
-        el.css('background', "url('" + this._path + "/map.png') no-repeat");
+        el.style.display = 'none';
+        el.style.width = frameSize[0] + 'px';
+        el.style.height = frameSize[1] + 'px';
+        el.style.background = 'url(' + this._path + '/map.png) no-repeat';
 
         return el;
     },
 
-    animations:function () {
+    animations: function () {
         var r = [];
         var d = this._data.animations;
         for (var n in d) {
@@ -48,7 +51,7 @@ clippy.Animator.prototype = {
         return r;
     },
 
-    preloadSounds:function (sounds) {
+    preloadSounds: function (sounds) {
 
         for (var i = 0; i < this._data.sounds.length; i++) {
             var snd = this._data.sounds[i];
@@ -58,16 +61,16 @@ clippy.Animator.prototype = {
 
         }
     },
-    hasAnimation:function (name) {
+    hasAnimation: function (name) {
         return !!this._data.animations[name];
     },
 
-    exitAnimation:function () {
+    exitAnimation: function () {
         this._exiting = true;
     },
 
 
-    showAnimation:function (animationName, stateChangeCallback) {
+    showAnimation: function (animationName, stateChangeCallback) {
         this._exiting = false;
 
         if (!this.hasAnimation(animationName)) {
@@ -91,7 +94,7 @@ clippy.Animator.prototype = {
     },
 
 
-    _draw:function () {
+    _draw: function () {
         var images = [];
         if (this._currentFrame) images = this._currentFrame.images || [];
 
@@ -99,16 +102,17 @@ clippy.Animator.prototype = {
             if (i < images.length) {
                 var xy = images[i];
                 var bg = -xy[0] + 'px ' + -xy[1] + 'px';
-                this._overlays[i].css({'background-position':bg, 'display':'block'});
+                this._overlays[i].style.backgroundPosition = bg;
+                this._overlays[i].style.display = 'block';
             }
             else {
-                this._overlays[i].css('display', 'none');
+                this._overlays[i].style.display = 'none';
             }
 
         }
     },
 
-    _getNextAnimationFrame:function () {
+    _getNextAnimationFrame: function () {
         if (!this._currentAnimation) return undefined;
         // No current frame. start animation.
         if (!this._currentFrame) return 0;
@@ -134,18 +138,18 @@ clippy.Animator.prototype = {
         return this._currentFrameIndex + 1;
     },
 
-    _playSound:function () {
+    _playSound: function () {
         var s = this._currentFrame.sound;
         if (!s) return;
         var audio = this._sounds[s];
         if (audio) audio.play();
     },
 
-    _atLastFrame:function () {
+    _atLastFrame: function () {
         return this._currentFrameIndex >= this._currentAnimation.frames.length - 1;
     },
 
-    _step:function () {
+    _step: function () {
         if (!this._currentAnimation) return;
         var newFrameIndex = Math.min(this._getNextAnimationFrame(), this._currentAnimation.frames.length - 1);
         var frameChanged = !this._currentFrame || this._currentFrameIndex !== newFrameIndex;
@@ -159,7 +163,7 @@ clippy.Animator.prototype = {
         this._draw();
         this._playSound();
 
-        this._loop = window.setTimeout($.proxy(this._step, this), this._currentFrame.duration);
+        this._loop = setTimeout(this._step.bind(this), this._currentFrame.duration);
 
 
         // fire events if the frames changed and we reached an end
@@ -176,16 +180,16 @@ clippy.Animator.prototype = {
     /***
      * Pause animation execution
      */
-    pause:function () {
-        window.clearTimeout(this._loop);
+    pause: function () {
+        clearTimeout(this._loop);
     },
 
     /***
      * Resume animation
      */
-    resume:function () {
+    resume: function () {
         this._step();
     }
 };
 
-clippy.Animator.States = { WAITING:1, EXITED:0 };
+clippy.Animator.States = { WAITING: 1, EXITED: 0 };
